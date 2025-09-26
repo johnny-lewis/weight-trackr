@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">WeightTrackr</string>
 
+    <!-- Weight Screen -->
+    <string name="weight_screen_title">Weight</string>
+    <string name="weight_screen_add_weight">Add Weight</string>
+
+    <!-- Weight Form -->
+    <string name="weight_form_kg_label">Weight (kg)</string>
+    <string name="weight_form_save_button">Save</string>
+
     <!-- DateTime Picker -->
     <string name="datetime_picker_save">Save</string>
     <string name="datetime_picker_cancel">Cancel</string>
