@@ -4,6 +4,7 @@ plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
+  alias(libs.plugins.ksp)
 }
 
 android {
@@ -18,6 +19,12 @@ android {
     versionName = "1.0"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments.put("room.schemaLocation", "$projectDir/schemas")
+      }
+    }
   }
 
   buildTypes {
@@ -56,4 +63,18 @@ dependencies {
   implementation(libs.androidx.compose.ui.fonts)
   androidTestImplementation(platform(libs.androidx.compose.bom))
   debugImplementation(libs.androidx.compose.ui.tooling)
+
+  // Koin
+  implementation(project.dependencies.platform(libs.koin.bom))
+  implementation(libs.koin.core)
+  implementation(libs.koin.android)
+  implementation(libs.koin.android.compose)
+
+  // Room
+  implementation(libs.room.runtime)
+  implementation(libs.room.ktx)
+  ksp(libs.room.compiler)
+
+  // KotlinX
+  implementation(libs.kotlinx.datetime)
 }

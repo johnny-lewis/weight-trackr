@@ -1,4 +1,4 @@
-package dev.johnnylewis.weighttrackr.ui.theme
+package dev.johnnylewis.weighttrackr.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.font.FontFamily

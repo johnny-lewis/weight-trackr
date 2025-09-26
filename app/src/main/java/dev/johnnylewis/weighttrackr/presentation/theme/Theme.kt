@@ -1,4 +1,4 @@
-package dev.johnnylewis.weighttrackr.ui.theme
+package dev.johnnylewis.weighttrackr.presentation.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
