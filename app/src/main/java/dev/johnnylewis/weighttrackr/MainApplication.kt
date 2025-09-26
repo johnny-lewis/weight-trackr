@@ -2,6 +2,7 @@ package dev.johnnylewis.weighttrackr
 
 import android.app.Application
 import dev.johnnylewis.weighttrackr.di.DataModule
+import dev.johnnylewis.weighttrackr.di.ViewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -13,6 +14,7 @@ class MainApplication : Application() {
       modules(
         modules = arrayOf(
           DataModule(),
+          ViewModelModule(),
         )
       )
     }

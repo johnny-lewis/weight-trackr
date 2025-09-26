@@ -77,4 +77,7 @@ dependencies {
 
   // KotlinX
   implementation(libs.kotlinx.datetime)
+
+  // DateTime Picker
+  implementation(libs.datetime.picker)
 }

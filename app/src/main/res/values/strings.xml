@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WeightTrackr</string>
+
+    <!-- DateTime Picker -->
+    <string name="datetime_picker_save">Save</string>
+    <string name="datetime_picker_cancel">Cancel</string>
 </resources>
