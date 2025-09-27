@@ -80,4 +80,7 @@ dependencies {
 
   // DateTime Picker
   implementation(libs.datetime.picker)
+
+  // Compose Charts
+  implementation(libs.charts)
 }

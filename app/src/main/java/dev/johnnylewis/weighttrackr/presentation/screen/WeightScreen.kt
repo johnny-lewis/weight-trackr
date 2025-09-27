@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,8 +20,11 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -30,6 +34,15 @@ import dev.johnnylewis.weighttrackr.presentation.model.WeightFormResult
 import dev.johnnylewis.weighttrackr.presentation.viewmodel.WeightScreenViewModel
 import dev.johnnylewis.weighttrackr.presentation.viewmodel.WeightScreenViewModel.Event
 import dev.johnnylewis.weighttrackr.presentation.viewmodel.WeightScreenViewModel.State
+import ir.ehsannarmani.compose_charts.LineChart
+import ir.ehsannarmani.compose_charts.models.AnimationMode
+import ir.ehsannarmani.compose_charts.models.DotProperties
+import ir.ehsannarmani.compose_charts.models.DrawStyle
+import ir.ehsannarmani.compose_charts.models.GridProperties
+import ir.ehsannarmani.compose_charts.models.HorizontalIndicatorProperties
+import ir.ehsannarmani.compose_charts.models.LabelHelperProperties
+import ir.ehsannarmani.compose_charts.models.LabelProperties
+import ir.ehsannarmani.compose_charts.models.Line
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -81,6 +94,11 @@ private fun WeightScreenContentLoaded(
           .padding(top = 8.dp),
         onPressed = { onEvent(Event.AddWeightPressed) }
       )
+      Chart(
+        modifier = Modifier
+          .padding(top = 16.dp),
+        values = listOf(100.0, 99.5, 98.8, 98.4, 98.7),
+      )
     }
   }
   BottomSheet(
@@ -115,6 +133,75 @@ private fun TopBar(
       )
     }
   }
+}
+
+@Composable
+private fun Chart(
+  modifier: Modifier = Modifier,
+  values: List<Double>,
+) {
+  val primaryColor = MaterialTheme.colorScheme.primary
+  LineChart(
+    modifier = modifier
+      .fillMaxWidth()
+      .fillMaxHeight(0.3f),
+    maxValue = 110.0,
+    minValue = 90.0,
+    data = remember {
+      listOf(
+        Line(
+          label = "Weight (kg)",
+          values = values,
+          color = SolidColor(primaryColor),
+          firstGradientFillColor = primaryColor.copy(alpha = 0.5f),
+          secondGradientFillColor = Color.Transparent,
+          gradientAnimationDelay = 1000,
+          drawStyle = DrawStyle.Stroke(width = 2.dp),
+          dotProperties = DotProperties(
+            enabled = true,
+            color = SolidColor(primaryColor),
+            strokeWidth = 1.dp,
+            radius = 3.dp,
+            strokeColor = SolidColor(primaryColor),
+          )
+        )
+      )
+    },
+    animationMode = AnimationMode.Together(
+      delayBuilder = { it * 500L }
+    ),
+    labelHelperProperties = LabelHelperProperties(
+      textStyle = MaterialTheme.typography.labelMedium.copy(
+        color = MaterialTheme.colorScheme.onBackground,
+      ),
+    ),
+    indicatorProperties = HorizontalIndicatorProperties(
+      textStyle = MaterialTheme.typography.labelMedium.copy(
+        color = MaterialTheme.colorScheme.onBackground,
+      ),
+      contentBuilder = { "${it.toInt()}" }
+    ),
+    gridProperties = GridProperties(
+      xAxisProperties = GridProperties.AxisProperties(
+        enabled = false,
+        lineCount = 7,
+      ),
+      yAxisProperties = GridProperties.AxisProperties(
+        enabled = false,
+        lineCount = 5,
+      )
+    ),
+    labelProperties = LabelProperties(
+      enabled = true,
+      labels = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"),
+      textStyle = MaterialTheme.typography.labelMedium.copy(
+        color = MaterialTheme.colorScheme.onBackground,
+      ),
+      rotation = LabelProperties.Rotation(
+        degree = 0f,
+      )
+    ),
+  )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
